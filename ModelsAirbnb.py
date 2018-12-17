@@ -248,24 +248,3 @@ def MultiLayer_Perceptron(trainSet, trainLabels, testSet):
    PredictedLabels = my_pipeline_NN.predict(testSet)
 
    return PredictedLabels
-
-############################################# AVERAGE AND ENSEMBLE MODELS ############################################
-    
-def averageModels(trainSet, trainLabels, testSet):
-    
-    gauss = Gnb(trainSet, trainLabels, testSet)
-    logreg = LogReg(trainSet, trainLabels, testSet)
-    decisiontree = DecisionTree(trainSet, trainLabels, testSet)
-    randomforest = RandomForest(trainSet, trainLabels, testSet)
-    svma = SVM(trainSet, trainLabels, testSet)
-    gnb = Gnb(trainSet, trainLabels, testSet)
-        
-    averageModels = (gauss + logreg + randomforest + randomforest + decisiontree) / 5.0
-    for i in range(len(averageModels)):
-        if averageModels[i] < 0.5:
-            averageModels[i] = 0
-        else:
-            averageModels[i] = 1
-    
-    return averageModels
-    
