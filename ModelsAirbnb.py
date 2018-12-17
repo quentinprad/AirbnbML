@@ -15,6 +15,8 @@ from sklearn.model_selection import *
 from sklearn.feature_selection import SelectFromModel
 from sklearn.preprocessing import StandardScaler
 from sklearn.ensemble import RandomForestRegressor
+from sklearn.neural_network import MLPClassifier
+
 
 
 ########################################## SCALING DATA #####################################################
@@ -173,7 +175,7 @@ def LogRegTuned(trainSet, trainLabels, testSet):
     hyperparameters = dict(C=C, penalty=penalty)
     
     # Use Gridsearch to find best hyperparameters
-    clf = GridSearchCV(LogisticRegression(), hyperparameters, cv=5, verbose=0)
+    clf = GridSearchCV(LogisticRegression(), hyperparameters, cv=2, verbose=0)
     best_model = clf.fit(trainSet, trainLabels)
     
     # View best hyperparameters
@@ -233,6 +235,19 @@ def Gnb(trainSet, trainLabels, testSet):
     
     return predictedLabels
 
+############################################### NEURAL NETWORK ######################################################
+    
+def MultiLayer_Perceptron(trainSet, trainLabels, testSet):
+
+   # Create the pipeline: Imputation + Scale + Feature Selection + MLP regressor
+   my_pipeline_NN = MLPClassifier(random_state = 42, max_iter = 400)
+
+   # Fit the model
+   my_pipeline_NN.fit(trainSet, trainLabels)
+
+   PredictedLabels = my_pipeline_NN.predict(testSet)
+
+   return PredictedLabels
 
 ############################################# AVERAGE AND ENSEMBLE MODELS ############################################
     
